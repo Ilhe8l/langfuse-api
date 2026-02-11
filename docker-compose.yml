@@ -1,0 +1,30 @@
+services:
+  api:
+    build: 
+      context: ./langfuse_metrics
+      dockerfile: Dockerfile
+    container_name: langfuse_api
+    ports:
+      - "8003:8003"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    restart: always
+    command: uvicorn main:app --host 0.0.0.0 --port 8003 --reload
+  
+  redis:
+    image: redis/redis-stack-server:latest
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    env_file:
+      - .env
