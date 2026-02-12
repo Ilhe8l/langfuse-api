@@ -50,6 +50,15 @@ A API roda em `http://localhost:8003/api-langfuse`. Todos os endpoints exigem os
 - `GET /latency/global`: Média de latência global.
 - `GET /latency/by-user`: Latência média por usuário.
 
+### Editais
+- `GET /edital/sections`: Seções mais acessadas de um edital.
+- `GET /edital/queries`: Perguntas mais frequentes sobre um edital.
+  - Parâmetros adicionais: `edital_number` (ex: 26/2025) e `exclusive` (padrão `true`, filtra apenas chamadas focadas).
+
+### Funcionalidades Extras
+
+- **Filtro Exclusivo**: Nos endpoints de editais, o parâmetro `exclusive=true` garante que apenas interações onde o edital foi o **único** contexto sejam contabilizadas.
+
 ## Funcionamento Interno
 
 1. Ao iniciar, a API dispara uma tarefa em background que baixa os traces do Langfuse a partir da `GLOBAL_START_DATE`.

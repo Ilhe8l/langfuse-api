@@ -22,3 +22,6 @@ reports/
 .cache/
 .tmp/
 *.local
+sections.json
+queries.json
+__pycache__
